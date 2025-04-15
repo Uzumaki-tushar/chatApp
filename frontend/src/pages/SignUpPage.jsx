@@ -4,6 +4,7 @@ import { Eye, EyeOff, Mail, MessageSquare, User,Lock, Loader2 } from "lucide-rea
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +13,8 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
-
+  
+  const navigate = useNavigate();
   const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
@@ -28,7 +30,7 @@ const SignUpPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const success=validateForm();
-    if(success==true)signup(formData);
+    if(success==true)signup(formData,navigate);
   };
 
   return (

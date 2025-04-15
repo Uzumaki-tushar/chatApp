@@ -3,6 +3,11 @@ import { axiosInstance } from "../lib/axios";
 import {toast} from "react-hot-toast";
 import { data } from "react-router-dom";
 import {io} from "socket.io-client";
+import VerifyEmail from "../pages/VerifyEmail"
+
+
+
+
 
 
 const BASE_URL= import.meta.env.MODE==="development"?"http://localhost:5001": "/api";
@@ -15,6 +20,7 @@ export const useAuthStore= create((set,get)=>({
     isCheckingAuth:true,
     onlineUsers:[],
     socket:null,
+    isVerifying:false,
 
     checkAuth: async()=>{
         try{
@@ -31,12 +37,16 @@ export const useAuthStore= create((set,get)=>({
         }
     },
 
-    signup: async(data)=>{
+    signup: async(data,navigate)=>{
         set({isSigningUp:true});
         try{
             const res=await axiosInstance.post("/auth/signup",data);
-            set({authUser:res.data});
-            toast.success("Account created successfully");
+            navigate('/VerifyEmail');
+            // set({authUser:res.data});
+
+            
+
+            // toast.success("Account created successfully");
             
             get().connectSocket();
         }
@@ -116,4 +126,8 @@ export const useAuthStore= create((set,get)=>({
     disconnectSocket: ()=>{
         if(get().socket?.connected) get().socket.disconnect();
     },
+
+    verify:()=>{
+        
+    }
 }))

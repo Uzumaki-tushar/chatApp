@@ -2,6 +2,7 @@ import {generateToken} from "../lib/utils.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import cloudinary from "../lib/cloudinary.js"
+import {SendVerificationCode, WelcomeEmail} from "../middleware/mail.js"
 
 export const signup= async (req,res)=>{
     const {fullName,email,password}=req.body;
@@ -18,11 +19,13 @@ export const signup= async (req,res)=>{
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword= await bcrypt.hash(password,salt);
+        const verificationCode=Math.floor(100000+Math.random()*900000).toString();
 
         const newUser = new User({
             fullName,
             email,
             password:hashedPassword,
+            verificationCode
         })
 
         if(newUser){
@@ -36,6 +39,7 @@ export const signup= async (req,res)=>{
                 email:newUser.email,
                 profiePic:newUser.profilePic,
             })
+            SendVerificationCode(newUser.email,newUser.verificationCode);
         }
         else{
             res.status(400).json({message:"Invalid user data"});
@@ -46,6 +50,8 @@ export const signup= async (req,res)=>{
         res.status(500).json({message:"Internal Server Error"});
     }
 }
+
+
 
 export const login= async (req,res)=>{
     const {email,password}=req.body;
