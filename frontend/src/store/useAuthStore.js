@@ -48,7 +48,7 @@ export const useAuthStore= create((set,get)=>({
 
             // toast.success("Account created successfully");
             
-            get().connectSocket();
+            // get().connectSocket();
         }
         catch(error){
             toast.error(error.response.data.message);
@@ -127,7 +127,20 @@ export const useAuthStore= create((set,get)=>({
         if(get().socket?.connected) get().socket.disconnect();
     },
 
-    verify:()=>{
-        
+    verify:async(data)=>{
+        set({isVerifying:true});
+        try{
+            const res=await axiosInstance.post("/auth/verifyCode",data);
+            set({authUser:res.data});
+            toast.success("Account created successfully");
+            get().connectSocket();
+
+        }
+        catch(error){
+            toast.error(error.response.data.message);
+        }
+        finally{
+            set({isVerifying:false});
+        }
     }
 }))

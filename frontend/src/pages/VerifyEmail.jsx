@@ -8,7 +8,7 @@ const VerifyEmail = () => {
 
     const [showPassword,setShowPassword]=useState(false);
     const [formData,setFormData]= useState({
-      password:"",
+      code:"",
     })
   
     const {verify, isVerifying}=useAuthStore();
@@ -43,7 +43,7 @@ const VerifyEmail = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Password</span>
+              <span className="label-text font-medium">Code</span>
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -53,8 +53,8 @@ const VerifyEmail = () => {
                 type={showPassword ? "text" : "password"}
                 className={`input input-bordered w-full pl-10`}
                 placeholder="••••••••"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                value={formData.code}
+                onChange={(e) => setFormData({ ...formData, code: e.target.value })}
               />
               <button
                 type="button"

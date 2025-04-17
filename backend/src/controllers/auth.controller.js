@@ -51,7 +51,36 @@ export const signup= async (req,res)=>{
     }
 }
 
+export const verifyEmail=async(req,res)=>{
+    try{
+        const {code}=req.body;
+        const user= await User.findOne({
+            verificationCode:code
+        })
+        if(!user){
+            console.log("user nahi mial");
+            return res.status(400).json({sucess:false,message:"Invalid or Expired Code"});
+        }
+        user.isVerified=true;
+        user.verificationCode=undefined;
+        await user.save();
 
+        res.status(201).json({
+            _id:user._id,
+            fullName:user.fullName,
+            email:user.email,
+            profiePic:user.profilePic,
+        })
+
+
+        await WelcomeEmail(user.email,user.username);
+
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({sucess:false,message:"Internal error"});
+    }
+}
 
 export const login= async (req,res)=>{
     const {email,password}=req.body;
