@@ -8,7 +8,7 @@ export const transporter = nodemailer.createTransport({
   port: 465,
   auth:{
     user:"tushar2471.be22@chitkara.edu.in",
-    pass:"ugcq gqdh okdp picc"
+    pass:"rxvi dcjf oscx ical"
   }
 });
 
