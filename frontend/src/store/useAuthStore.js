@@ -10,7 +10,7 @@ import VerifyEmail from "../pages/VerifyEmail"
 
 
 
-const BASE_URL= import.meta.env.MODE==="development"?"http://localhost:5001": "/api";
+const BASE_URL= "https://chatapp-3-1tdz.onrender.com/api";
 
 export const useAuthStore= create((set,get)=>({
     authUser:null,
