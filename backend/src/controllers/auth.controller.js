@@ -73,7 +73,7 @@ export const verifyEmail=async(req,res)=>{
         })
 
 
-        await WelcomeEmail(user.email,user.username);
+        await WelcomeEmail(user.email,user.fullName);
 
     }
     catch(error){

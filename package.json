@@ -1,13 +1,28 @@
 {
-  "name": "chatapp",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000c\u0000h\u0000a\u0000t\u0000A\u0000p\u0000p\u0000\r\u0000 \u0000",
-  "main": "index.js",
+  "description": "",
+  "main": "src/index.js",
   "scripts": {
-    "build":"npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start":"npm run start --prefix backend"
+    "dev": "nodemon backend/src/index.js",
+    "build":"npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "nodemon backend/src/index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "chatapp": "file:..",
+    "cloudinary": "^2.6.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.2",
+    "nodemailer": "^6.10.1",
+    "socket.io": "^4.8.1"
+  }
 }
